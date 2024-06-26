@@ -96,7 +96,20 @@ export function sessionMiddleware(options: SessionOptions): MiddlewareHandler {
 
     session.updateAccess()
 
-    c.set('session', session)
+    const sessionProxy = new Proxy(session, {
+      get (target: Session, p: string, receiver: any): any {
+        if (Reflect.has(target, p)) return Reflect.get(target, p, receiver)
+        return session.get(p as keyof Session)
+      },
+      set (target: Session, p: string, newValue: any, receiver: any): boolean {
+        if (Reflect.has(target, p)) return Reflect.set(target, p, receiver)
+        session.set(p as keyof Session, newValue)
+      }
+    })
+
+    c.session = sessionProxy
+
+    c.set('session', sessionProxy)
 
     await next()
 

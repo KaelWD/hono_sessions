@@ -17,7 +17,6 @@ export interface SessionData {
  * Session class with methods for interacting with the session
  */
 export class Session {
-
   private cache: SessionData
 
   constructor() {
@@ -59,7 +58,7 @@ export class Session {
     this.cache._accessed = new Date().toISOString()
   }
 
-  get(key: string): unknown {
+  get<T extends keyof this>(key: T): this[T] {
     const entry = this.cache._data[key]
 
     if (entry) {
@@ -74,17 +73,26 @@ export class Session {
     }
   }
 
-  set(key: string, value: unknown) {
+  set<T extends keyof this>(key: T, value: this[T]) {
     this.cache._data[key] = {
       value,
       flash: false
     }
   }
 
-  flash(key: string, value: unknown) {
+  flash<T extends keyof this>(key: T, value: this[T]) {
     this.cache._data[key] = {
       value,
       flash: true
     }
+  }
+}
+
+declare module 'hono' {
+  interface ContextVariableMap {
+    session: Session
+  }
+  interface Context<E> {
+    session: E extends { Variables: {} } ? E['Variables']['session'] : Session
   }
 }
