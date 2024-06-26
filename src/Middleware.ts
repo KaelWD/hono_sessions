@@ -77,6 +77,7 @@ export function sessionMiddleware(options: SessionOptions): MiddlewareHandler {
         _data:{},
         _expire: null,
         _delete: false,
+        _rotate: false,
         _accessed: null,
       }
 
@@ -114,9 +115,9 @@ export function sessionMiddleware(options: SessionOptions): MiddlewareHandler {
     await next()
 
     const shouldDelete = session.getCache()._delete;
-    const shouldRotateSessionKey = c.get("session_key_rotation") === true;
+    const shouldRotateSessionKey = session.getCache()._rotate;
     const storeIsCookieStore = store instanceof CookieStore;
-    
+
     if (shouldDelete) {
       store instanceof CookieStore
         ? await store.deleteSession(c)
@@ -134,6 +135,7 @@ export function sessionMiddleware(options: SessionOptions): MiddlewareHandler {
       shouldRotateSessionKey;
 
     if (shouldRecreateSessionForNonCookieStore) {
+      session.getCache()._rotate = false;
       await store.deleteSession(sid);
       sid = globalThis.crypto.randomUUID();
       await store.createSession(sid, session.getCache());

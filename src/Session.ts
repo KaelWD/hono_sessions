@@ -10,6 +10,7 @@ export interface SessionData {
   _data: Record<string, SessionDataEntry>,
   _expire: string | null,
   _delete: boolean,
+  _rotate: boolean,
   _accessed: string | null,
 }
 
@@ -24,6 +25,7 @@ export class Session {
       _data: {},
       _expire: null,
       _delete: false,
+      _rotate: false,
       _accessed: null,
     }
   }
@@ -44,6 +46,10 @@ export class Session {
     if (expiration) {
       this.setExpiration(new Date(Date.now() + expiration * 1000).toISOString())
     }
+  }
+
+  rotateKey() {
+    this.cache._rotate = true
   }
 
   deleteSession() {
