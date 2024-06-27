@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "hono": "^4.0.0",
-    "hono-sessions": "../../npm"
+    "hono-sessions": "../../dist"
   },
   "devDependencies": {
     "bun-types": "^0.6.2"

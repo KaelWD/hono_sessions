@@ -5,7 +5,7 @@
   "dependencies": {
     "@hono/node-server": "^1.7.0",
     "hono": "^4.0.0",
-    "hono-sessions": "../../npm"
+    "hono-sessions": "../../dist"
   },
   "devDependencies": {
     "tsx": "^3.12.2"

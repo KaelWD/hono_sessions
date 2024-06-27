@@ -64,7 +64,7 @@ export class Session {
     this.cache._accessed = new Date().toISOString()
   }
 
-  get<T extends keyof this>(key: T): this[T] {
+  get<T extends keyof this & string>(key: T): this[T] {
     const entry = this.cache._data[key]
 
     if (entry) {
@@ -73,20 +73,20 @@ export class Session {
         delete this.cache._data[key]
       }
   
-      return value
+      return value as any
     } else {
-      return null
+      return null as any
     }
   }
 
-  set<T extends keyof this>(key: T, value: this[T]) {
+  set<T extends keyof this & string>(key: T, value: this[T]) {
     this.cache._data[key] = {
       value,
       flash: false
     }
   }
 
-  flash<T extends keyof this>(key: T, value: this[T]) {
+  flash<T extends keyof this & string>(key: T, value: this[T]) {
     this.cache._data[key] = {
       value,
       flash: true

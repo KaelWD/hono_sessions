@@ -1,4 +1,4 @@
-import { Iron } from '../deps.ts'
+import * as Iron from 'iron-webcrypto'
 
 /** 
  * Encrypt a string or object value

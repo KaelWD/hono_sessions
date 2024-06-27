@@ -1,5 +1,5 @@
-import Store from '../Store.ts'
-import { SessionData } from '../../Session.ts'
+import Store from '../Store'
+import { SessionData } from '../../Session'
 
 export class CloudflareD1Store implements Store {
   db: any

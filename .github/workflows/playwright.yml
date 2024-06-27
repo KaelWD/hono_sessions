@@ -6,97 +6,6 @@ on:
     branches: [ main, master ]
 
 jobs:
-  test-deno-memory-store:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - uses: denoland/setup-deno@v1
-      with:
-        deno-version: v1.40.3
-    - name: Install dependencies
-      working-directory: ./playwright
-      run: npm ci
-    - name: Install Playwright Browsers
-      working-directory: ./playwright
-      run: npx playwright install chromium
-    - name: Run Playwright tests
-      working-directory: ./playwright
-      run: npx playwright test
-
-  test-deno-cookie-store:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    env:
-      STORE: cookie
-      ENCRYPTION_KEY: password_at_least_32_characters_long
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - uses: denoland/setup-deno@v1
-      with:
-        deno-version: v1.40.3
-    - name: Install dependencies
-      working-directory: ./playwright
-      run: npm ci
-    - name: Install Playwright Browsers
-      working-directory: ./playwright
-      run: npx playwright install chromium
-    - name: Run Playwright tests
-      working-directory: ./playwright
-      run: npx playwright test
-
-  test-deno-kv-store:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    env:
-      STORE: kv
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - uses: denoland/setup-deno@v1
-      with:
-        deno-version: v1.40.3
-    - name: Install dependencies
-      working-directory: ./playwright
-      run: npm ci
-    - name: Install Playwright Browsers
-      working-directory: ./playwright
-      run: npx playwright install chromium
-    - name: Run Playwright tests
-      working-directory: ./playwright
-      run: npx playwright test
-
-  test-deno-sqlite-store:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    env:
-      STORE: sqlite
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - uses: denoland/setup-deno@v1
-      with:
-        deno-version: v1.40.3
-    - name: Install dependencies
-      working-directory: ./playwright
-      run: npm ci
-    - name: Install Playwright Browsers
-      working-directory: ./playwright
-      run: npx playwright install chromium
-    - name: Run Playwright tests
-      working-directory: ./playwright
-      run: npx playwright test
-
   test-bun-cookie-store:
     timeout-minutes: 60
     runs-on: ubuntu-latest
@@ -108,9 +17,6 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - uses: denoland/setup-deno@v1
-      with:
-        deno-version: v1.40.3
     - uses: oven-sh/setup-bun@v1
       with:
         bun-version: 1.0.2
@@ -140,9 +46,6 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - uses: denoland/setup-deno@v1
-      with:
-        deno-version: v1.40.3
     - uses: oven-sh/setup-bun@v1
       with:
         bun-version: 1.0.2
@@ -171,9 +74,6 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - uses: denoland/setup-deno@v1
-      with:
-        deno-version: v1.40.3
     - name: Install dependencies
       working-directory: ./playwright
       run: npm ci
@@ -199,9 +99,6 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - uses: denoland/setup-deno@v1
-      with:
-        deno-version: v1.40.3
     - name: Install dependencies
       working-directory: ./playwright
       run: npm ci
@@ -230,9 +127,6 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - uses: denoland/setup-deno@v1
-      with:
-        deno-version: v1.40.3
     - name: Install dependencies
       working-directory: ./playwright
       run: npm ci

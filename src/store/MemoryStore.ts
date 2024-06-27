@@ -1,5 +1,5 @@
-import Store from './Store.ts'
-import { SessionData } from '../../mod.ts'
+import type Store from './Store'
+import type { SessionData } from '../Session'
 
 /**
  * Memory storage driver class

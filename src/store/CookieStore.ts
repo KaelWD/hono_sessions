@@ -1,5 +1,9 @@
-import { Context, getCookie, setCookie, CookieOptions } from '../../deps.ts'
-import { encrypt, decrypt, SessionData } from '../../mod.ts'
+import { getCookie, setCookie } from 'hono/cookie'
+import type { Context } from 'hono'
+import type { CookieOptions } from 'hono/utils/cookie'
+
+import { encrypt, decrypt } from '../Crypto'
+import type { SessionData } from '../Session'
 
 interface CookieStoreOptions {
   encryptionKey?: string | null,

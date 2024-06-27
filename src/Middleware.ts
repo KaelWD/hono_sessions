@@ -1,8 +1,12 @@
-import { getCookie, setCookie, createMiddleware, MiddlewareHandler } from '../deps.ts'
-import Store from './store/Store.ts'
-import CookieStore from './store/CookieStore.ts'
-import { Session, SessionData, encrypt, decrypt } from '../mod.ts'
-import { CookieOptions } from '../deps.ts';
+import { getCookie, setCookie } from 'hono/cookie'
+import { createMiddleware } from 'hono/factory'
+import type { MiddlewareHandler } from 'hono'
+import type { CookieOptions } from 'hono/utils/cookie'
+
+import CookieStore from './store/CookieStore'
+import { encrypt, decrypt } from './Crypto'
+import { type SessionData, Session } from './Session'
+import type Store from './store/Store'
 
 interface SessionOptions {
   store: Store | CookieStore
@@ -98,13 +102,14 @@ export function sessionMiddleware(options: SessionOptions): MiddlewareHandler {
     session.updateAccess()
 
     const sessionProxy = new Proxy(session, {
-      get (target: Session, p: string, receiver: any): any {
+      get (target: Session, p: string, receiver: any) {
         if (Reflect.has(target, p)) return Reflect.get(target, p, receiver)
         return session.get(p as keyof Session)
       },
-      set (target: Session, p: string, newValue: any, receiver: any): boolean {
+      set (target: Session, p: string, newValue: any, receiver: any) {
         if (Reflect.has(target, p)) return Reflect.set(target, p, receiver)
         session.set(p as keyof Session, newValue)
+        return true
       }
     })
 

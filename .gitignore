@@ -1,6 +1,7 @@
 .vscode
-/npm
 .env
+/dist
+/node_modules
 *.sqlite
 /tmp
 /test/deno/tmp/*

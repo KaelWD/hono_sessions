@@ -1,0 +1,43 @@
+{
+  "name": "@kaelwd/hono-sessions",
+  "private": false,
+  "version": "0.5.8",
+  "description": "Cookie-based sessions for Hono web framework",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaelwd/hono_sessions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kaelwd/hono_sessions/issues"
+  },
+  "scripts": {
+    "build": "pkgroll"
+  },
+  "module": "./dist/index.mjs",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./bun-sqlite-store": {
+      "import": "./dist/store/bun/BunSqliteStore.mjs",
+      "types": "./dist/store/bun/BunSqliteStore.d.ts"
+    },
+    "./cloudflare-d1-store": {
+      "import": "./dist/store/cloudflare/CloudflareD1Store.mjs",
+      "types": "./dist/store/cloudflare/CloudflareD1Store.d.ts"
+    }
+  },
+  "dependencies": {
+    "hono": "^4.0.0",
+    "iron-webcrypto": "0.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9",
+    "pkgroll": "^2.1.1",
+    "typescript": "^5.5.2"
+  }
+}
