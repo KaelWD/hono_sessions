@@ -40,7 +40,7 @@ export function sessionMiddleware(options: SessionOptions): MiddlewareHandler {
   }
 
   const middleware = createMiddleware(async (c, next) => {
-    const session = new Session
+    let session = new Session(expireAfterSeconds)
     let sid = ''
     let session_data: SessionData | null | undefined
     let createNewSession = false
@@ -77,21 +77,10 @@ export function sessionMiddleware(options: SessionOptions): MiddlewareHandler {
     }
 
     if (createNewSession) {
-      const defaultData = {
-        _data:{},
-        _expire: null,
-        _delete: false,
-        _rotate: false,
-        _accessed: null,
-      }
-
-      if (store instanceof CookieStore) {
-        await store.createSession(c, defaultData)
-      } else {
+      session = new Session(expireAfterSeconds)
+      if (!(store instanceof CookieStore)) {
         sid = globalThis.crypto.randomUUID()
       }
-
-      session.setCache(defaultData)
     }
   
     if (!(store instanceof CookieStore)) {

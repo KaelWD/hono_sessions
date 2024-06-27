@@ -20,13 +20,16 @@ export interface SessionData {
 export class Session {
   private cache: SessionData
 
-  constructor() {
+  constructor(expireAfterSeconds?: number) {
     this.cache = {
       _data: {},
       _expire: null,
       _delete: false,
       _rotate: false,
       _accessed: null,
+    }
+    if (expireAfterSeconds != null) {
+      this.reupSession(expireAfterSeconds)
     }
   }
 
