@@ -1,7 +1,7 @@
 {
   "name": "@kaelwd/hono-sessions",
   "private": false,
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Cookie-based sessions for Hono web framework",
   "license": "MIT",
   "repository": {
@@ -14,7 +14,9 @@
   "scripts": {
     "build": "pkgroll"
   },
-  "files": ["dist/"],
+  "files": [
+    "dist/"
+  ],
   "module": "./dist/index.mjs",
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
