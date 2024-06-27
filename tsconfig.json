@@ -4,6 +4,7 @@
     "moduleResolution": "Bundler",
     "lib": ["ESNext"],
     "strict": true,
-    "isolatedModules": true,
-  }
+    "isolatedModules": true
+  },
+  "exclude": ["dist"]
 }

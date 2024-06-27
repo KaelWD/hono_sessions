@@ -99,6 +99,10 @@ declare module 'hono' {
     session: Session
   }
   interface Context<E> {
-    session: E extends { Variables: {} } ? E['Variables']['session'] : Session
+    session: 0 extends (1 & E)
+      ? Session
+      : E extends { Variables: {} }
+        ? E['Variables']['session']
+        : Session
   }
 }
