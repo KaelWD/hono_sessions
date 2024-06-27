@@ -1,3 +1,4 @@
+import type { Context } from 'hono'
 import type Store from './Store'
 import type { SessionData } from '../Session'
 
@@ -11,20 +12,16 @@ class MemoryStore implements Store {
     this.data = new Map
   }
 
-  getSessionById(sid: string): SessionData | null | undefined {
+  get(c: Context, sid: string): SessionData | null | undefined {
     return this.data.has(sid) ? this.data.get(sid) : null
   }
 
-  createSession(sid: string, initial_data: SessionData) {
-    this.data.set(sid, initial_data)
-  }
-
-  deleteSession(sid: string) {
-    this.data.delete(sid)
-  }
-
-  persistSessionData(sid: string, session_data: SessionData) {
+  set(c: Context, sid: string, session_data: SessionData) {
     this.data.set(sid, session_data)
+  }
+
+  delete(c: Context, sid: string) {
+    this.data.delete(sid)
   }
 }
 
